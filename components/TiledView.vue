@@ -36,17 +36,17 @@ export default {
   methods: {
     ...mapActions(['getBreedsList', 'fetchBreed']),
     breedsOption() {
-      this.breeds = this.breeds.concat(Object.entries(this.lists).reduce((list, [breed, subbreeds]) => {
+      this.breeds = Object.entries(this.lists).reduce((list, [breed, subbreeds]) => {
         if (subbreeds.length) {
           for (const subbreed of subbreeds) {
-            list.push({"text": `${breed} ${subbreed}`, "value": `${breed}/${subbreed}`})
+            list.push({"text": `${subbreed} ${breed}`, "value": `${breed}/${subbreed}`})
           }
         }
         else {
           list.push({"text": breed, "value": breed})
         }
         return list
-      }, []))
+      }, [])
     },
     change() {
       this.fetchBreed(this.selected).catch(e => {console.log(e)})
